@@ -47,6 +47,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                 }).getString("Owner");
                 if (owner.equals("2915372048")||owner.equals("3337140142")){
                     sendMsg(groupid,msgid,"小伙纸，爷的群你也敢闹事，你不想活了吧！");
+                    return;
                 }
             List<String> quny = this.send(msg -> {
                 msg.addMsg(Msg.GroupMemberListGet);
@@ -56,16 +57,24 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
             new Thread(() -> this.send(msg -> {
                 msg.addMsg(Msg.Group);
                 msg.addMsg(Msg.GroupId, groupid);
+                msg.addMsg(Msg.Text,getSP("Command","Hi~"));
             for (String Quin : quny) {
                 msg.addAt(Quin,"\u200B");//添加艾特消息
             }
                })).start();
+            return;
             }
-
             if (textmsg.matches("设置命令\\s?.*")){
                 String texts=textmsg.replaceFirst("设置命令\\s?","");
                 putSP("Command",texts);
-                sendMsg(groupid,msgid,"已将命令更换为："+texts);
+                sendMsg(groupid,msgid,"已将触发命令更换为："+texts);
+                return;
+            }
+            if (textmsg.matches("设置回复\\s?.*")){
+                String texts=textmsg.replaceFirst("设置回复\\s?","");
+                putSP("Reply",texts);
+                sendMsg(groupid,msgid,"已将回复内容更换为："+texts);
+                return;
             }
             if (textmsg.equals("说明")){
                 this.send(msg -> {
@@ -76,9 +85,11 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                             "╭────╺说明╸────╮\n" +
                             "│状态\n"+
                             "│╸触发指令："+getSP("Command","你好")+"\n" +
+                            "│╸回复内容："+getSP("Command","Hi~")+"\n" +
                             "│\n"+
                             "│指令\n"+
                             "│╸设置命令 [命令]\n" +
+                            "│╸设置回复 [内容]\n" +
                             "│\n"+
                             "│说明\n"+
                             "│╸在群内发送触发指令\n" +
@@ -132,7 +143,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
 
     @Override
     public String info() {
-        return "发送“介绍”查看使用方法";
+        return "发送“说明”查看使用方法";
     }
 
     @Override
@@ -142,7 +153,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
 
     @Override
     public String version() {
-        return "1.0.0";
+        return "1.0.1";
     }
 
     @Override
