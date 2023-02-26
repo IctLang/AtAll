@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+>
+    <!-- 开机启动 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <!-- 发送持久广播 -->
+    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <!-- 安卓9.0以上前台Service所需权限 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <application
+            android:allowBackup="true"
+            tools:targetApi="31"
+            android:label="艾特全体插件"
+            android:icon="@drawable/ic_launcher_background"
+            android:roundIcon="@drawable/ic_launcher_background"
+            android:supportsRtl="true">
+
+    <service
+            android:name="aei.lang.atall.AtAll"
+            android:exported="true"
+            tools:ignore="ExportedService">
+
+        <intent-filter>
+            <action android:name="mcsq.nxa.secluded.plugin"/>
+        </intent-filter>
+    </service>
+    </application>
+</manifest>
