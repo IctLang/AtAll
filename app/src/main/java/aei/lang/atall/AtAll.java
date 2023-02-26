@@ -1,14 +1,11 @@
 package aei.lang.atall;
 
 import android.annotation.SuppressLint;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.preference.PreferenceManager;
 import mcsq.nxa.secluded.msg.Messenger;
 import mcsq.nxa.secluded.msg.Msg;
@@ -16,7 +13,6 @@ import mcsq.nxa.secluded.plugin.PluginBinder;
 import mcsq.nxa.secluded.plugin.PluginBinderHandler;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,17 +24,17 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
 
 
     @Override
-    public void onLoad() throws RemoteException {
+    public void onLoad() {
 
     }
 
     @Override
-    public void onUnLoad() throws RemoteException {
+    public void onUnLoad() {
 
     }
 
     @Override
-    public void onMsgHandler(Messenger messenger) throws RemoteException {
+    public void onMsgHandler(Messenger messenger) {
         final String groupid = messenger.getString(Msg.GroupId);
         final String uin = messenger.getString(Msg.Uin);
         final String msgid = messenger.getString(Msg.MsgId);
@@ -81,6 +77,9 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                             "│状态\n"+
                             "│╸触发指令："+getSP("Command","你好")+"\n" +
                             "│\n"+
+                            "│指令\n"+
+                            "│╸设置命令 [命令]\n" +
+                            "│\n"+
                             "│说明\n"+
                             "│╸在群内发送触发指令\n" +
                             "│╸机器人会遍历群友进行艾特\n" +
@@ -88,7 +87,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                             "│信息\n"+
                             "│╸SEC插件\n" +
                             "│╸MIT协议开源\n" +
-                            "│╸\n" +
+                            "│╸https://github.com/IctLang/AtAll\n" +
                             "╰»" + getTime());
                 });
             }
@@ -122,32 +121,32 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
     }
 
     @Override
-    public Bitmap icon() throws RemoteException {
+    public Bitmap icon() {
         return BitmapFactory.decodeResource(super.getResources(), R.drawable.img);
     }
 
     @Override
-    public String name() throws RemoteException {
+    public String name() {
         return "艾特全体插件";
     }
 
     @Override
-    public String info() throws RemoteException {
+    public String info() {
         return "发送“介绍”查看使用方法";
     }
 
     @Override
-    public String author() throws RemoteException {
+    public String author() {
         return "泽";
     }
 
     @Override
-    public String version() throws RemoteException {
+    public String version() {
         return "1.0.0";
     }
 
     @Override
-    public String activity() throws RemoteException {
+    public String activity() {
         return null;
     }
 
