@@ -57,7 +57,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
             new Thread(() -> this.send(msg -> {
                 msg.addMsg(Msg.Group);
                 msg.addMsg(Msg.GroupId, groupid);
-                msg.addMsg(Msg.Text,getSP("Command","Hi~"));
+                msg.addMsg(Msg.Text,getSP("Reply","Hi~"));
             for (String Quin : quny) {
                 msg.addAt(Quin,"\u200B");//添加艾特消息
             }
@@ -85,7 +85,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                             "╭────╺说明╸────╮\n" +
                             "│状态\n"+
                             "│╸触发指令："+getSP("Command","你好")+"\n" +
-                            "│╸回复内容："+getSP("Command","Hi~")+"\n" +
+                            "│╸回复内容："+getSP("Reply","Hi~")+"\n" +
                             "│\n"+
                             "│指令\n"+
                             "│╸设置命令 [命令]\n" +
@@ -153,7 +153,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
 
     @Override
     public String version() {
-        return "1.0.1";
+        return "1.0.3";
     }
 
     @Override
