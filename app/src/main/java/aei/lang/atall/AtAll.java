@@ -40,6 +40,10 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
         final String msgid = messenger.getString(Msg.MsgId);
         final String textmsg = messenger.getString(Msg.Text, "");
         if (messenger.hasMsg(Msg.Group)) {
+            String master=getSP("Master","0");
+            if (!(master.equals("0")||master.equals(uin))){
+                return;
+            }
             if (getSP("Command","你好").equals(textmsg)){
                 String owner=this.send(msg -> {
                     msg.addMsg(Msg.GroupMemberListGetAdmin);
@@ -64,16 +68,41 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                })).start();
             return;
             }
-            if (textmsg.matches("设置命令\\s?.*")){
+            if (textmsg.matches("设置命令\\s?.+")){
                 String texts=textmsg.replaceFirst("设置命令\\s?","");
                 putSP("Command",texts);
                 sendMsg(groupid,msgid,"已将触发命令更换为："+texts);
                 return;
             }
-            if (textmsg.matches("设置回复\\s?.*")){
+            if (textmsg.matches("设置回复\\s?.+")){
                 String texts=textmsg.replaceFirst("设置回复\\s?","");
                 putSP("Reply",texts);
                 sendMsg(groupid,msgid,"已将回复内容更换为："+texts);
+                return;
+            }
+            if (textmsg.equals("认领")){
+                putSP("Master",uin);
+                this.send(msg -> {
+                    msg.addMsg(Msg.Group);
+                    msg.addMsg(Msg.GroupId, groupid);
+                    msg.addMsg(Msg.Reply,msgid);
+                    msg.addMsg(Msg.Text, "" +
+                            "╭────╺认领╸────╮\n" +
+                            "│已被认领\n"+
+                            "│\n"+
+                            "│介绍\n"+
+                            "│╸认领后只接受认领者信息\n" +
+                            "│╸如他人认领请清软件数据\n" +
+                            "│\n"+
+                            "│指令\n"+
+                            "│╸解除认领\n" +
+                            "╰»" + getTime());
+                });
+                return;
+            }
+            if (textmsg.equals("解除认领")){
+                putSP("Master","0");
+                sendMsg(groupid,msgid,"认领已解除");
                 return;
             }
             if (textmsg.equals("说明")){
@@ -90,6 +119,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
                             "│指令\n"+
                             "│╸设置命令 [命令]\n" +
                             "│╸设置回复 [内容]\n" +
+                            "│╸认领\n" +
                             "│\n"+
                             "│说明\n"+
                             "│╸在群内发送触发指令\n" +
@@ -153,7 +183,7 @@ public class AtAll extends PluginBinder implements PluginBinderHandler {
 
     @Override
     public String version() {
-        return "1.0.3";
+        return "1.0.5";
     }
 
     @Override
